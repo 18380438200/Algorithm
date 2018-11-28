@@ -114,11 +114,22 @@ public class JavaBaseCal {
     }
 
     /**
+     * 计算1+1/2+1/3+1/4+1/5+1/6+1/7+1/8+1/9+1/10=?
+     */
+    public static void accumulation() {
+        double sum = 0;
+        for (int i = 1; i <= 10; i++) {
+            sum += (double) 1/i;
+        }
+        System.out.print(sum);
+    }
+
+    /**
      * 从1不断的累加，最多加到100，但如果你的累加结果
      * 正好大于1000时，要求也结束这个循环。问这个时候正好加
      * 到了几。
      */
-    public static void accumulation() {
+    public static void accumulation2() {
         int sum = 0;
         for (int i = 1; i <= 100; i++) {
             sum += i;
@@ -133,7 +144,7 @@ public class JavaBaseCal {
      * 从1累加到100，但如果要累加的数据能被3整除，
      * 并且也能被7整数，那么就不要累加这个数。最后输出结果。
      */
-    public static void accumulation2() {
+    public static void accumulation3() {
         int sum = 0;
         for (int i = 1; i <= 100; i++) {
             if (i % 3 == 0 && i % 7 == 0) {
