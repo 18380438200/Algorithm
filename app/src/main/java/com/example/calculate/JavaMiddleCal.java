@@ -1,6 +1,7 @@
 package com.example.calculate;
 
 import java.text.DecimalFormat;
+import java.util.Scanner;
 
 /**
  * create by apple
@@ -146,6 +147,7 @@ public class JavaMiddleCal {
 
     /**
      * 判断是不是水仙花数
+     *
      * @param i
      * @return
      */
@@ -154,7 +156,7 @@ public class JavaMiddleCal {
         int c = i % 10;
         int b = i / 10 % 10;
         int a = i / 100;
-        if (a * a * a + b * b * b +c * c * c == i) {
+        if (a * a * a + b * b * b + c * c * c == i) {
             return true;
         } else {
             return false;
@@ -179,8 +181,114 @@ public class JavaMiddleCal {
         System.exit(0);
     }
 
+    /**
+     * 输入一行字符，分别统计出其中英文字母、空格、数字和其它字符的个数。
+     */
+    public static void statisticalCharacter() {
+        System.out.println("请输入一行字符");
+        Scanner scanner = new Scanner(System.in);
+        String string = scanner.nextLine();
+        int enChar = 0;
+        int spaceChar = 0;
+        int num = 0;
+        int otherChar = 0;
+        for (int i = 0; i < string.length(); i++) {
+            char character = string.charAt(i);
+            //用ASCALL码进行匹配
+            if ((character >= 'A' && character <= 'Z') || (character >= 'a' && character <= 'z')) {
+                enChar++;
+            } else if (character == ' ') {
+                spaceChar++;
+            } else if (character >= '0' && character <= '9') {
+                num++;
+            } else {
+                otherChar++;
+            }
+        }
+        System.out.println("共有英文字母、空格、数字和其它字符个数分别为：" + enChar + "  " + spaceChar + "  " + num + "  " + otherChar);
+    }
+
+    /**
+     * 求s = a + aa + aaa + aaaa + aa...a的值，需要键盘输入a和n的值，n表示共有多少项
+     * 例如输入a=2,n=5,打印出 2 + 22 + 222 + 2222 + 22222。
+     */
+    public static void printN() {
+        System.out.println("请输入这个数a");
+        Scanner scanner = new Scanner(System.in);
+        int a = scanner.nextInt();
+        System.out.println("请输入n的值");
+        int n = scanner.nextInt();
+        int last = 0;  //上一个项式的值
+        StringBuffer stringBuffer = new StringBuffer();
+        for (int i = 0; i < n; i++) {
+            last = last * 10 + a;
+            if (i == n - 1) {
+                stringBuffer.append(last);
+            } else {
+                stringBuffer.append(last + " + ");
+            }
+        }
+        System.out.print(stringBuffer.toString());
+    }
+
+    /**
+     * 一个数如果恰好等于它的因子之和，这个数就称为"完数"。例如6=1＋2＋3。编程找出1000以内的所有完数。
+     */
+    public static boolean isPerfectNumber(int num) {
+        int sum = 0;  //因子的和
+        for (int i = 1; i <= num/2; i++) {
+            if (num % i == 0) {  //遍历找出所有因子
+                //i为num其中一个因子
+                sum += i;
+            }
+        }
+        if (sum == num) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public static void printPunPerfectNumber() {
+        for (int i = 1; i <= 1000; i++) {
+            if (isPerfectNumber(i)) {
+                StringBuffer sb = new StringBuffer();
+                sb.append(i + " = ");
+                for (int j = 1; j <= i/2; j++) {
+                    if (i % j == 0) {
+                        sb.append(j + " + ");
+                    }
+                }
+                sb.deleteCharAt(sb.length()-2);  //去除最后一个"+"
+                sb.append("\n");
+                System.out.print(sb.toString());
+            }
+        }
+    }
+
+    /**
+     * 有1、2、3、4个数字，能组成多少个互不相同且无重复数字的三位数？都是多少？
+     */
+    public static void compositionFigure() {
+        int totalCount = 0;  //总个数
+        //从4个数里随机任选一个数出来，选3次
+        for (int i = 1; i <= 4; i++) {
+            for (int j = 1; j <= 4; j++) {
+                for (int k = 1; k <= 4; k++) {
+                    //此时确保互不相同，但需剔除重复数字情况
+                    if (i == j || i == k || j == k) {
+                        continue;
+                    }
+                    totalCount++;
+                    System.out.println(i + "" + j + "" + k);
+                }
+            }
+        }
+        System.out.println("总个数有：" + totalCount + "个");
+    }
+
     public static void main(String[] args) {
-        decompositionFactor(120);
+        compositionFigure();
     }
 
 }
